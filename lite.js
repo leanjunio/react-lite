@@ -40,6 +40,13 @@ function createElement(type, props, ...children) {
 function render(element, parent) {
     const domElement =  element.type === "TEXT_ELEMENT" ? document.createTextNode("") : document.createElement(element.type)
 
+    // assign the passed element props to the html dom attributes
+    // e.g. <h1 mProp={1} /> --> <h1 mProp="1">...</h1>
+    // etc...
+    Object.keys(element.props)
+        .filter(key => key !== "children")
+        .forEach(name => domElement[name] = element.props[name])
+
     // recursively add the children of the `element` to the dom version of the element
     element.props.children.forEach(child => render(child, domElement))
     parent.appendChild(domElement)
