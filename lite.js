@@ -32,6 +32,20 @@ function createElement(type, props, ...children) {
     }
 }
 
+/**
+ * Adds the passed element to a parent destination
+ * @param {{ props: { children: { type: string, props: any }[] } }} element - the element to add to the a parent
+ * @param {Element} parent - the parent element to add the element to
+ */
+function render(element, parent) {
+    const domElement = document.createElement(element.type)
+
+    // recursively add the children of the `element` to the dom version of the element
+    element.props.children.forEach(child => render(child, domElement))
+    parent.appendChild(domElement)
+}
+
 export const Lite = {
-    createElement
+    createElement,
+    render
 }
