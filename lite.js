@@ -38,7 +38,7 @@ function createElement(type, props, ...children) {
  * @param {Element} parent - the parent element to add the element to
  */
 function render(element, parent) {
-    const domElement = document.createElement(element.type)
+    const domElement =  element.type === "TEXT_ELEMENT" ? document.createTextNode("") : document.createElement(element.type)
 
     // recursively add the children of the `element` to the dom version of the element
     element.props.children.forEach(child => render(child, domElement))
